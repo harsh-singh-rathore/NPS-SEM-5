@@ -41,9 +41,7 @@ main()
 	while(strcmp(resp, "exit") != 0) {
 		printf("enter choice: 1 for sort 2 for even odd: ");
 		int choice;
-		scanf("%i", &choice);
-		printf("LOL");
-		data.choice = choice;
+		scanf("%i", &data.choice);
 		printf("Enter Number of Elements: ");
 		scanf("%d", &data.no);
 		int i;
@@ -60,11 +58,12 @@ main()
 		if(recedbytes < 0) {
 			printf("Error in receiving");
 		}
-		printf("The answer received is");
+		printf("The answer received is: ");
 		for(i=0; i<ans.no; i++) {
 			printf("%d ", ans.number[i]);
 		}
-		printf("\n Do you want to proceed(Enter exit to exit)"); 
+		printf("\nDo you want to proceed(Enter exit to exit)?\n"); 
+		getchar();
 		gets(resp);
 		
 	}

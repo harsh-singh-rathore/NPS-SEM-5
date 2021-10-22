@@ -32,6 +32,26 @@ void bubble_sort(struct data_set *data)
     }
 }
 
+void split_array(struct data_set *data) {
+	int N = data->no;
+
+	int even[N], odd[N], i, k1 = 0, k2 = 0;  
+
+    for(i = 0; i < N; i++)  
+    {   
+        if(data->number[i] % 2 == 0)  
+            even[k1++] = data->number[i];  
+        else  
+            odd[k2++] = data->number[i];  
+    } 
+	for(i=0; i<k1; i++) {
+		data->number[i] = even[i];
+	}
+	for(; i-k1<k2; i++) {
+		data->number[i] = odd[i-k1];
+	}
+}
+
 main()
 {
 	int sockfd,newsockfd,retval,i;
@@ -65,7 +85,7 @@ main()
 	}
 	actuallen=sizeof(clientaddr);
 	newsockfd=accept(sockfd,(struct sockaddr*)&clientaddr,&actuallen);
-	if(newsockfd==-1)
+	if(newsockfd == -1)
 	{
 		close(sockfd);
 	}
@@ -80,15 +100,12 @@ main()
 			close(newsockfd);
 		}
 		// perform action
-		bubble_sort(&data);
-		pid_t pid = getpid();
-		printf("pid: %lun", pid);
-		printf("BRUH");
-		int c;
-		for (c = 0; c < data.no ; c++) {
-        	printf("%d ", data.number[c]);
-    	}
-		printf("\n");
+		if(data.choice == 1) {
+			bubble_sort(&data);
+		}
+		if(data.choice == 2) {
+			split_array(&data);
+		}
 		sentbytes=send(newsockfd,(void *) &data,sizeof(data),0);
 		if(sentbytes==-1)
 		{
